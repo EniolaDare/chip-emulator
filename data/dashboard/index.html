@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chip8 Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Chip8 Dashboard</h1>
+        <div id="status">Disconnected</div>
+    </header>
+
+    <main>
+        <section class="panel" id="display">
+            <h2>Display</h2>
+
+            <canvas id="chip8-display" width="640" height="320"></canvas>
+        </section>
+
+        <section class="panel" id="cpu">
+            <h2>CPU State</h2>
+
+            <div id="cpu-info">
+                <div class="stat">
+                    <p>Opcode: <span id="opcode">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>Program Counter: <span id="pc">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>Stack Pointer: <span id="sp">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>Index Register: <span id="i">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>Delay Timer: <span id="dt">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>Sound Timer: <span id="st">N/A</span></p>
+                </div>
+            </div>
+
+            <h3>Registers</h3>
+            <div id="registers">
+                <div class="stat">
+                    <p>V0: <span id="v0">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V1: <span id="v1">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V2: <span id="v2">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V3: <span id="v3">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V4: <span id="v4">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V5: <span id="v5">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V6: <span id="v6">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V7: <span id="v7">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V8: <span id="v8">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>V9: <span id="v9">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>VA: <span id="va">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>VB: <span id="vb">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>VC: <span id="vc">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>VD: <span id="vd">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>VE: <span id="ve">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>VF: <span id="vf">N/A</span></p>
+                </div>
+            </div>
+
+            <h3>Stack</h3>
+            <div id="stack">    
+                <div class="stat">
+                    <p>Stack: <span id="stack-content">N/A</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="input">
+            <h2>Input Devices</h2>
+
+            <h3>Keypad</h3>
+            <div id="keypad">
+                <span class="key" id="key-1">1</span>
+                <span class="key" id="key-2">2</span>
+                <span class="key" id="key-3">3</span>
+                <span class="key" id="key-C">C</span>
+
+                <span class="key" id="key-4">4</span>
+                <span class="key" id="key-5">5</span>
+                <span class="key" id="key-6">6</span>
+                <span class="key" id="key-D">D</span>
+
+                <span class="key" id="key-7">7</span>
+                <span class="key" id="key-8">8</span>
+                <span class="key" id="key-9">9</span>
+                <span class="key" id="key-E">E</span>
+
+                <span class="key" id="key-A">A</span>
+                <span class="key" id="key-0">0</span>
+                <span class="key" id="key-B">B</span>
+                <span class="key" id="key-F">F</span>
+    </div>
+
+            <h3>Accelerometer</h3>
+            <div id="accelerometer">
+                <div class="stat">
+                    <p>X: <span id="accel-x">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>Y: <span id="accel-y">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>Z: <span id="accel-z">N/A</span></p>
+                </div>
+
+                <p>Tilt Direction: <span id="tilt-direction">N/A</span></p>
+            </div>
+        </section>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>
