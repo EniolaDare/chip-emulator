@@ -213,3 +213,11 @@ void Emulator::buzzerBeep(uint16_t duration){
     delay(duration);
     noTone(BUZZER_PIN);
 }
+
+State Emulator::getState() {
+    State state;
+    memcpy(state.keys, chip8.keypad, sizeof(state.keys));
+    state.direction = accel.getDirection();
+    state.shake = shakeKeyActive && ((millis() - lastShakeTime) < accelKeyMapping.shakePressDurationMs);
+    return state;
+}

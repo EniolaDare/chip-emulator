@@ -20,6 +20,12 @@ struct AccelKeyMapping {
     uint16_t shakePressDurationMs = 150;
 };
 
+struct State{
+    bool keys[16];
+    Direction direction;
+    bool shake;
+};
+
 class Emulator {
     public:
         Emulator(Chip8 &chip8, Chip8Display &display, Chip8Keypad &keys, Chip8Storage &storage, Chip8Accel &accel);
@@ -34,6 +40,7 @@ class Emulator {
         bool setTiltSensitivity(Sensitivity sensitivity);
         bool setShakeSensitivity(Sensitivity sensitivity);
         void updateAccelerometer();
+        State getState();
 
     private:
         Chip8 &chip8;
