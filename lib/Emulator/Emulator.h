@@ -25,6 +25,7 @@ struct EmulatorState{
     Direction direction;
     bool shake;
     bool accelerometerEnabled;
+    uint8_t pixels[CHIP8_HEIGHT][CHIP8_WIDTH];
 };
 
 class Emulator {

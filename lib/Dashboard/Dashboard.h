@@ -10,7 +10,7 @@ class Dashboard {
         bool start();
         void stop();
         void loop();
-        void sendState(EmulatorState state);
+        void sendState(EmulatorState &state);
 
     private:
         bool running = false;
