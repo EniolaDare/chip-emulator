@@ -45,7 +45,8 @@ void Dashboard::sendState(EmulatorState state) {
     doc["direction"]["left"] = state.direction.left;
     doc["direction"]["right"] = state.direction.right;
 
-    state.shake ? doc["shake"] = true : doc["shake"] = false;
+    doc["shake"] = state.shake;
+    doc["accelerometer_enabled"] = state.accelerometerEnabled;
 
     for (uint8_t i = 0; i < 16; i++) {
         doc["keys"][i] = state.keys[i];

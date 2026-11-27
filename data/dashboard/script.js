@@ -1,6 +1,7 @@
 const socket = new WebSocket(`ws://${window.location.host}/ws`);
 
 const statusElement = document.getElementById("status");
+const accelerometerStatusElement = document.getElementById("accelerometer-status");
 const shakeElement = document.getElementById("shake-status");
 const tiltElement = document.getElementById("tilt-direction");
 
@@ -31,8 +32,17 @@ socket.addEventListener("message", (event) => {
 
 function updateDashboard(state) {
     updateKeys(state.keys);
+    updateAccelerometerStatus(state.accelerometer_enabled);
     updateTilt(state.direction);
     updateShake(state.shake);
+}
+
+function updateAccelerometerStatus(enabled) {
+    if (!accelerometerStatusElement || typeof enabled !== "boolean") return;
+
+    accelerometerStatusElement.textContent = enabled ? "ON" : "OFF";
+    accelerometerStatusElement.classList.toggle("enabled", enabled);
+    accelerometerStatusElement.classList.toggle("disabled", !enabled);
 }
 
 function updateKeys(keys) {

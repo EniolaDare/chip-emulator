@@ -114,14 +114,14 @@ bool App::init() {
 void App::loop() {
     if (!initialized) return;
 
+    dashboard.loop();
+    if (millis() - lastDashUpdate >= DASH_UPDATE_INTERVAL) {
+        lastDashUpdate = millis();
+        dashboard.sendState(emulator.getState());
+    }
+
     MenuEvent event = menuInput.getInputEvent();
     if (playing) {
-        dashboard.loop();
-
-        if (millis()-lastDashUpdate >= DASH_UPDATE_INTERVAL){
-            lastDashUpdate = millis();
-            dashboard.sendState(emulator.getState());
-        }
         if (event == SELECT) {
             if (!emulator.start(currentRomPath.c_str(), selectedSource)) {
                 Serial.print("Could not restart game: ");

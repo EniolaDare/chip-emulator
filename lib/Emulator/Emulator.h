@@ -24,6 +24,7 @@ struct EmulatorState{
     bool keys[16];
     Direction direction;
     bool shake;
+    bool accelerometerEnabled;
 };
 
 class Emulator {
