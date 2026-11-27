@@ -22,7 +22,7 @@ bool Emulator::init(){
     }
 
     pinMode(BUZZER_PIN, OUTPUT);
-    noTone(BUZZER_PIN);
+    digitalWrite(BUZZER_PIN, LOW);
     buzzerState = false;
 
     return true;
@@ -214,8 +214,8 @@ void Emulator::buzzerBeep(uint16_t duration){
     noTone(BUZZER_PIN);
 }
 
-State Emulator::getState() {
-    State state;
+EmulatorState Emulator::getState() {
+    EmulatorState state;
     memcpy(state.keys, chip8.keypad, sizeof(state.keys));
     state.direction = accel.getDirection();
     state.shake = shakeKeyActive && ((millis() - lastShakeTime) < accelKeyMapping.shakePressDurationMs);

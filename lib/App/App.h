@@ -2,6 +2,7 @@
 #define APP_H
 
 #include <stddef.h>
+#include <stdint.h>
 #include <vector>
 #include <Arduino.h>
 #include <Chip8Display.h>
@@ -9,6 +10,8 @@
 #include <Emulator.h>
 #include <Menu.h>
 #include <MenuInput.h>
+#include <Dashboard.h>
+
 
 class App {
     public:
@@ -21,6 +24,7 @@ class App {
         Chip8Display &display;
         Chip8Storage &storage;
         MenuInput menuInput;
+        Dashboard dashboard;
 
         Menu mainMenu;
         Menu gamesMenu;
@@ -48,6 +52,9 @@ class App {
         
         bool initialized = false;
         bool playing = false;
+
+        const uint32_t DASH_UPDATE_INTERVAL = 100;
+        uint32_t lastDashUpdate;
 
         void populateRomMenu(Menu &romMenu, const char *romDirectory, RomSource romSource, std::vector<String> &romPaths, std::vector<String> &romLabels);
         void refreshSettingsMenu();

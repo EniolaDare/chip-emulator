@@ -31,6 +31,10 @@ bool App::init() {
     }
     emulator.setAccelerometerEnabled(accelerometerEnabled);
 
+    if (!dashboard.start()){
+        Serial.println("Could not start dashboard.");
+    }
+
     menuInput.init();
     menuManager.currentMenu = &mainMenu;
 
@@ -101,6 +105,9 @@ bool App::init() {
     initialized = true;
     display.drawStartScreen();
     display.drawMenu(mainMenu);
+
+    lastDashUpdate = millis();
+
     return true;
 }
 
@@ -109,6 +116,12 @@ void App::loop() {
 
     MenuEvent event = menuInput.getInputEvent();
     if (playing) {
+        dashboard.loop();
+
+        if (millis()-lastDashUpdate >= DASH_UPDATE_INTERVAL){
+            lastDashUpdate = millis();
+            dashboard.sendState(emulator.getState());
+        }
         if (event == SELECT) {
             if (!emulator.start(currentRomPath.c_str(), selectedSource)) {
                 Serial.print("Could not restart game: ");
