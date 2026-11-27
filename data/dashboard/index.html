@@ -4,116 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chip8 Dashboard</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand dashboard-navbar">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Chip8 Dashboard</span>
-            <span id="status" class="badge rounded-pill text-bg-secondary">Disconnected</span>
-        </div>
-    </nav>
+    <header>
+        <h1>Chip8 Dashboard</h1>
+        <div id="status">Disconnected</div>
+    </header>
 
-    <main class="container-fluid py-4 dashboard-container">
-        <div class="row g-4">
-            <section class="col-xl-8" id="display">
-                <div class="card dashboard-card h-100">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h2 class="h5 mb-0">Display</h2>
-                        <span class="text-secondary small">64 x 32</span>
-                    </div>
-                    <div class="card-body display-body">
-                        <canvas id="chip8-display" width="640" height="320" class="chip8-canvas"></canvas>
-                    </div>
+    <main>
+        <section class="panel" id="display">
+            <h2>Display</h2>
+            <canvas id="chip8-display" width="640" height="320"></canvas>
+        </section>
+
+        <section class="panel" id="cpu">
+            <h2>CPU State</h2>
+
+            <div id="cpu-info">
+                <div class="stat-group stat-group-opcode">
+                    <div class="stat"><p>Opcode: <span id="opcode">N/A</span></p></div>
                 </div>
-            </section>
-
-            <section class="col-xl-4" id="input">
-                <div class="card dashboard-card h-100">
-                    <div class="card-header">
-                        <h2 class="h5 mb-0">Input Devices</h2>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="section-heading">Keypad</h3>
-                        <div id="keypad" class="keypad-grid">
-                            <span class="key" id="key-1">1</span>
-                            <span class="key" id="key-2">2</span>
-                            <span class="key" id="key-3">3</span>
-                            <span class="key" id="key-C">C</span>
-                            <span class="key" id="key-4">4</span>
-                            <span class="key" id="key-5">5</span>
-                            <span class="key" id="key-6">6</span>
-                            <span class="key" id="key-D">D</span>
-                            <span class="key" id="key-7">7</span>
-                            <span class="key" id="key-8">8</span>
-                            <span class="key" id="key-9">9</span>
-                            <span class="key" id="key-E">E</span>
-                            <span class="key" id="key-A">A</span>
-                            <span class="key" id="key-0">0</span>
-                            <span class="key" id="key-B">B</span>
-                            <span class="key" id="key-F">F</span>
-                        </div>
-
-                        <h3 class="section-heading mt-4">Accelerometer</h3>
-                        <div id="accelerometer" class="row g-2">
-                            <div class="col-12 stat stat-wide">
-                                <span>Tilt Direction</span>
-                                <strong id="tilt-direction">N/A</strong>
-                            </div>
-                            <div class="col-12 stat stat-wide">
-                                <span>Shake Detection</span>
-                                <strong id="shake-status" class="shake-indicator" role="status" aria-live="polite">No shake detected</strong>
-                            </div>
-                        </div>
-                    </div>
+                <div class="stat-group stat-group-registers">
+                    <div class="stat"><p>Program Counter: <span id="pc">N/A</span></p></div>
+                    <div class="stat"><p>Stack Pointer: <span id="sp">N/A</span></p></div>
+                    <div class="stat"><p>Index Register: <span id="i">N/A</span></p></div>
                 </div>
-            </section>
-
-            <section class="col-12" id="cpu">
-                <div class="card dashboard-card">
-                    <div class="card-header">
-                        <h2 class="h5 mb-0">CPU State</h2>
-                    </div>
-                    <div class="card-body">
-                        <div id="cpu-info" class="row g-2 mb-4">
-                            <div class="col-6 col-md-4 col-xl-2 stat"><span>Opcode</span><strong id="opcode">N/A</strong></div>
-                            <div class="col-6 col-md-4 col-xl-2 stat"><span>Program Counter</span><strong id="pc">N/A</strong></div>
-                            <div class="col-6 col-md-4 col-xl-2 stat"><span>Stack Pointer</span><strong id="sp">N/A</strong></div>
-                            <div class="col-6 col-md-4 col-xl-2 stat"><span>Index Register</span><strong id="i">N/A</strong></div>
-                            <div class="col-6 col-md-4 col-xl-2 stat"><span>Delay Timer</span><strong id="dt">N/A</strong></div>
-                            <div class="col-6 col-md-4 col-xl-2 stat"><span>Sound Timer</span><strong id="st">N/A</strong></div>
-                        </div>
-
-                        <h3 class="section-heading">Registers</h3>
-                        <div id="registers" class="row g-2">
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V0</span><strong id="v0">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V1</span><strong id="v1">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V2</span><strong id="v2">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V3</span><strong id="v3">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V4</span><strong id="v4">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V5</span><strong id="v5">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V6</span><strong id="v6">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V7</span><strong id="v7">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V8</span><strong id="v8">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>V9</span><strong id="v9">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>VA</span><strong id="va">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>VB</span><strong id="vb">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>VC</span><strong id="vc">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>VD</span><strong id="vd">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>VE</span><strong id="ve">N/A</strong></div>
-                            <div class="col-6 col-sm-4 col-md-3 col-xl-1-5 stat"><span>VF</span><strong id="vf">N/A</strong></div>
-                        </div>
-
-                        <h3 class="section-heading mt-4">Stack</h3>
-                        <div id="stack" class="stat stat-wide">
-                            <span>Stack</span>
-                            <strong id="stack-content">N/A</strong>
-                        </div>
-                    </div>
+                <div class="stat-group stat-group-timers">
+                    <div class="stat"><p>Delay Timer: <span id="dt">N/A</span></p></div>
+                    <div class="stat"><p>Sound Timer: <span id="st">N/A</span></p></div>
                 </div>
-            </section>
-        </div>
+            </div>
+
+            <h3>Registers</h3>
+            <div id="registers">
+                <div class="stat"><p>V0: <span id="v0">N/A</span></p></div>
+                <div class="stat"><p>V1: <span id="v1">N/A</span></p></div>
+                <div class="stat"><p>V2: <span id="v2">N/A</span></p></div>
+                <div class="stat"><p>V3: <span id="v3">N/A</span></p></div>
+                <div class="stat"><p>V4: <span id="v4">N/A</span></p></div>
+                <div class="stat"><p>V5: <span id="v5">N/A</span></p></div>
+                <div class="stat"><p>V6: <span id="v6">N/A</span></p></div>
+                <div class="stat"><p>V7: <span id="v7">N/A</span></p></div>
+                <div class="stat"><p>V8: <span id="v8">N/A</span></p></div>
+                <div class="stat"><p>V9: <span id="v9">N/A</span></p></div>
+                <div class="stat"><p>VA: <span id="va">N/A</span></p></div>
+                <div class="stat"><p>VB: <span id="vb">N/A</span></p></div>
+                <div class="stat"><p>VC: <span id="vc">N/A</span></p></div>
+                <div class="stat"><p>VD: <span id="vd">N/A</span></p></div>
+                <div class="stat"><p>VE: <span id="ve">N/A</span></p></div>
+                <div class="stat"><p>VF: <span id="vf">N/A</span></p></div>
+            </div>
+
+            <h3>Stack</h3>
+            <div id="stack">
+                <div class="stat"><p>Stack: <span id="stack-content">N/A</span></p></div>
+            </div>
+        </section>
+
+        <section class="panel" id="input">
+            <h2>Input Devices</h2>
+
+            <h3>Keypad</h3>
+            <div id="keypad">
+                <span class="key" id="key-1">1</span>
+                <span class="key" id="key-2">2</span>
+                <span class="key" id="key-3">3</span>
+                <span class="key" id="key-C">C</span>
+                <span class="key" id="key-4">4</span>
+                <span class="key" id="key-5">5</span>
+                <span class="key" id="key-6">6</span>
+                <span class="key" id="key-D">D</span>
+                <span class="key" id="key-7">7</span>
+                <span class="key" id="key-8">8</span>
+                <span class="key" id="key-9">9</span>
+                <span class="key" id="key-E">E</span>
+                <span class="key" id="key-A">A</span>
+                <span class="key" id="key-0">0</span>
+                <span class="key" id="key-B">B</span>
+                <span class="key" id="key-F">F</span>
+            </div>
+
+            <h3>Accelerometer</h3>
+            <div id="accelerometer">
+                <div class="stat">
+                    <p>Tilt Direction: <span id="tilt-direction">N/A</span></p>
+                </div>
+                <div class="stat">
+                    <p>Shake Detection: <strong id="shake-status">No shake detected</strong></p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script src="script.js"></script>
